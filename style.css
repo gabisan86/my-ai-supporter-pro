@@ -1,0 +1,124 @@
+/* プロ級の洗練されたデザインへの魔法 */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+    display: flex;
+    flex-direction: column; /* ★ここを「column（縦）」に変更！ */
+    justify-content: flex-start; /* ★上から順に並べる */
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px; /* 上下に余白を作る */
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1); /* 高級感のある影 */
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    backdrop-filter: blur(10px); /* 背景を少しぼかすトレンドのデザイン */
+}
+
+h1 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
+p {
+    text-align: left;
+    color: #666;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease; /* 変化をスムーズに */
+    box-sizing: border-box;
+}
+
+input:focus, textarea:focus {
+    border-color: #6f42c1; /* クリックした時に色が変わる */
+    outline: none;
+    box-shadow: 0 0 8px rgba(111, 66, 193, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+    margin-bottom: 15px;
+}
+
+button:hover {
+    transform: translateY(-2px); /* マウスを置くと少し浮き上がる */
+}
+
+/* ボタンの色分け */
+.btn-save { background-color: #28a745; color: white; }
+.btn-ai { background-color: #6f42c1; color: white; }
+.btn-copy { background-color: white; color: #6f42c1; border: 2px solid #6f42c1 !important; }
+
+#result {
+    margin-top: 30px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    border-left: 5px solid #6f42c1;
+    text-align: left;
+}
+
+/* ポートフォリオ用追加デザイン */
+.portfolio-section {
+    margin-top: 40px;
+    text-align: left;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #eee;
+    margin: 30px 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    color: #444;
+}
+
+.description {
+    font-weight: normal;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.profile h3 {
+    font-size: 1.2rem;
+    color: #6f42c1;
+    margin-top: 25px;
+}
+
+.profile p {
+    font-weight: normal;
+    color: #777;
+    line-height: 1.8;
+}

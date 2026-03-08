@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>AI副業サポーター・プロ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="card">
+        <h1>AI副業サポーター・プロ</h1>
+        
+        <p>1. あなたの目標</p>
+        <input type="text" id="userInput" placeholder="例：月5万稼ぐ" style="padding: 10px; width: 80%; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ddd;">
+        
+        <p>2. 達成期限</p>
+        <input type="text" id="userDeadline" placeholder="例：3ヶ月以内" style="padding: 10px; width: 80%; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ddd;">
+
+        <p>3. 今のあなたの武器（スキル・経験）</p>
+        <textarea id="userSkill" placeholder="例：事務職10年、Excelが得意、趣味でブログを書いているなど" style="padding: 10px; width: 80%; height: 60px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ddd;"></textarea>
+        
+        <br>
+        
+        <button class="btn-save" onclick="generatePlan()">
+            計画を保存する
+        </button>
+
+        <button class="btn-ai" onclick="createPrompt()">
+            AIへの依頼書を作る
+        </button>
+
+        <div id="result"></div>
+
+        <button id="copyBtn" class="btn-copy" onclick="copyToClipboard()" style="display: none;">
+            この依頼書をコピーする
+        </button>
+    </div>
+
+    <div class="portfolio-section">
+        <hr>
+        <h2>制作実績：AI副業サポーター・プロ</h2>
+        <p class="description">
+            プログラミング未経験から、「AIと共創する」ことをテーマに開発したツールです。
+            ユーザーの目標とスキルを整理し、AIへの最適な指示文（プロンプト）を自動生成します。
+        </p>
+        
+        <div class="profile">
+            <h3>開発者：AI副業クリエイター</h3>
+            <p>
+                非エンジニアながらAIツールを駆使し、
+                「3ヶ月で月5万稼ぐ」を目標に、実践的なWebアプリを開発中。
+                「日常の不便をAIで解決する」ことを得意としています。
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
