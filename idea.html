@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>副業ネタ・アイデア帳</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #fdf6e3; color: #5d4037; }
+        .container { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        h1 { font-size: 20px; text-align: center; border-bottom: 2px solid #d3af37; padding-bottom: 10px; }
+        .input-group { display: flex; gap: 10px; margin-top: 20px; }
+        input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        .add-btn { padding: 10px 20px; background: #d3af37; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .idea-list { margin-top: 25px; }
+        .idea-item { background: #fff9c4; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #fbc02d; animation: fadeIn 0.5s; }
+        .delete-btn { background: #e74c3c; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 12px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<a href="portfolio.html" style="text-decoration:none; color:#795548; font-size: 14px;">← ポートフォリオに戻る</a>
+
+<div class="container">
+    <h1>副業ネタ・アイデア帳</h1>
+    
+    <div class="input-group">
+        <input type="text" id="ideaInput" placeholder="例：ペットの悩み相談AI">
+        <button class="add-btn" onclick="addIdea()">追加</button>
+    </div>
+
+    <div id="ideaList" class="idea-list">
+        </div>
+</div>
+
+<script>
+function addIdea() {
+    const input = document.getElementById('ideaInput');
+    const list = document.getElementById('ideaList');
+    
+    if (input.value.trim() === "") return;
+
+    // 1. 新しいアイデアの「カード」を作成
+    const div = document.createElement('div');
+    div.className = 'idea-item';
+    
+    // 2. カードの中身（文字と削除ボタン）を作る
+    div.innerHTML = `
+        <span>${input.value}</span>
+        <button class="delete-btn" onclick="this.parentElement.remove()">削除</button>
+    `;
+
+    // 3. リストの一番上に追加する
+    list.prepend(div);
+
+    // 4. 入力欄を空にする
+    input.value = "";
+}
+</script>
+
+</body>
+</html>
