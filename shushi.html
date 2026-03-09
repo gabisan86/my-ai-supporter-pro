@@ -2,51 +2,78 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>副業収支シミュレーター</title>
+    <title>副業収支シミュレーター Pro</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; background: #f0f4f8; }
-        .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h1 { font-size: 20px; text-align: center; color: #2c3e50; }
-        label { display: block; margin-top: 15px; font-weight: bold; }
-        input { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        button { width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 5px; margin-top: 20px; cursor: pointer; font-size: 16px; }
-        .result { margin-top: 20px; padding: 15px; background: #e8f6ef; border-radius: 5px; display: none; }
+        body { font-family: sans-serif; padding: 20px; background: #f0f4f8; color: #2c3e50; }
+        .container { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h1 { font-size: 22px; text-align: center; color: #1a2a3a; margin-bottom: 25px; border-bottom: 2px solid #27ae60; padding-bottom: 10px; }
+        label { display: block; margin-top: 15px; font-weight: bold; font-size: 14px; }
+        input { width: 100%; padding: 12px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        button { width: 100%; padding: 15px; background: #27ae60; color: white; border: none; border-radius: 8px; margin-top: 25px; cursor: pointer; font-size: 18px; font-weight: bold; transition: 0.3s; }
+        button:hover { background: #219150; }
+        .result { margin-top: 25px; padding: 20px; background: #e8f6ef; border-radius: 10px; display: none; border-left: 5px solid #27ae60; }
+        .advice { margin-top: 15px; font-size: 14px; color: #444; font-style: italic; background: white; padding: 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-<a href="portfolio.html" style="text-decoration:none; color:#3498db;">← ポートフォリオに戻る</a>
+<a href="portfolio.html" style="text-decoration:none; color:#3498db; font-size: 14px;">← ポートフォリオに戻る</a>
 
 <div class="container">
-    <h1>副業収支シミュレーター</h1>
+    <h1>副業収支シミュレーター Pro</h1>
     
     <label>売上（円）</label>
-    <input type="number" id="sales" placeholder="例: 5000">
+    <input type="number" id="sales" placeholder="例: 10000">
 
     <label>経費（円）</label>
     <input type="number" id="costs" placeholder="例: 1000">
 
-    <label>かかった時間（時間）</label>
-    <input type="number" id="hours" placeholder="例: 2">
+    <label>作業時間（時間）</label>
+    <input type="number" id="hours" placeholder="例: 2.5" step="0.1">
 
-    <button onclick="calculate()">利益を計算する</button>
+    <button onclick="calculate()">精密診断を開始する</button>
 
     <div id="resultArea" class="result">
-        <strong>【診断結果】</strong><br>
-        手残り利益： <span id="profitText"></span> 円
+        <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">【診断結果】</div>
+        <div>手残り利益： <strong><span id="profitText"></span> 円</strong></div>
+        <div style="margin-top: 10px; border-top: 1px solid #c8e6d5; padding-top: 10px;">
+            実質時給： <strong style="color: #e67e22;"><span id="hourlyRateText"></span> 円</strong>
+        </div>
+        <div class="advice" id="adviceText"></div>
     </div>
 </div>
 
 <script>
 function calculate() {
-    const sales = document.getElementById('sales').value;
-    const costs = document.getElementById('costs').value;
+    const sales = parseFloat(document.getElementById('sales').value) || 0;
+    const costs = parseFloat(document.getElementById('costs').value) || 0;
+    const hours = parseFloat(document.getElementById('hours').value) || 0;
+    
     const resultArea = document.getElementById('resultArea');
     const profitText = document.getElementById('profitText');
+    const hourlyRateText = document.getElementById('hourlyRateText');
+    const adviceText = document.getElementById('adviceText');
 
     const profit = sales - costs;
-    
     profitText.innerText = profit.toLocaleString();
+
+    if (hours > 0) {
+        const hourlyRate = Math.round(profit / hours);
+        hourlyRateText.innerText = hourlyRate.toLocaleString();
+        
+        // アドバイス判定
+        if (hourlyRate >= 3000) {
+            adviceText.innerText = "素晴らしい！プロ級の生産性です。この調子で横展開しましょう。";
+        } else if (hourlyRate >= 1500) {
+            adviceText.innerText = "順調です。さらにAIを活用して作業時間を削れば、時給3000円が見えてきます。";
+        } else {
+            adviceText.innerText = "伸びしろがあります。単純作業をAIに任せて、あなたの時間を節約しましょう！";
+        }
+    } else {
+        hourlyRateText.innerText = "---";
+        adviceText.innerText = "時間を入力すると時給が判定されます。";
+    }
+    
     resultArea.style.display = 'block';
 }
 </script>
