@@ -5,27 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI副業サポーター</title>
     <style>
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .back-link { position: absolute; top: 20px; left: 20px; padding: 10px 18px; background-color: #fff; color: #4b5563; text-decoration: none; border-radius: 8px; font-size: 0.9rem; font-weight: bold; border: 1px solid #d1d5db; }
-        .container { width: 90%; max-width: 500px; background: #fff; padding: 45px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; }
-        h1 { font-size: 2rem; color: #1f2937; margin-bottom: 35px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn { display: block; width: 100%; background: #2563eb; color: #fff; padding: 18px; border-radius: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border: none; transition: transform 0.1s; }
+        /* スクリーンショットを元に、デザインをミリ単位で復元 */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 戻るボタンをカードの外、左上に配置 */
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 8px 15px;
+            background-color: #ffffff;
+            color: #4b5563;
+            text-decoration: none;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* カードデザインの完全復元 */
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 30px; /* 大きめの角丸 */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1f2937;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* 鮮やかなブルーのボタン */
+        .btn {
+            display: block;
+            width: 100%;
+            background: #2563eb;
+            color: #ffffff;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn:hover { background: #1d4ed8; }
         .btn:active { transform: scale(0.98); }
-        #advice-area { margin-top: 30px; padding: 25px; border-radius: 15px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; text-align: left; line-height: 1.8; display: none; }
+
+        /* アドバイスエリアのデザイン */
+        #advice-area {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+            text-align: left;
+            line-height: 1.7;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <a href="portfolio.html" class="back-link">← ポートフォリオに戻る</a>
+
     <div class="container">
         <h1>🤖 AI副業サポーター</h1>
         <button id="startBtn" class="btn">診断を開始する</button>
         <div id="advice-area"></div>
     </div>
+
     <script>
         document.getElementById('startBtn').addEventListener('click', () => {
             const area = document.getElementById('advice-area');
             area.style.display = 'block';
-            area.innerHTML = "<strong>【AIのアドバイス】</strong><br>月5万円への最短ルートは、このポートフォリオに実用的なツールを揃え、あなたのスキルを世の中に証明することです！";
+            area.innerHTML = `
+                <strong style="color: #1e40af;">【AIのアドバイス】</strong><br>
+                月5万円への最短ルートは、このポートフォリオに実用的なツールを揃え、あなたのスキルを世の中に証明することです！
+            `;
         });
     </script>
 </body>
