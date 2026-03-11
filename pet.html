@@ -13,8 +13,9 @@
         .form-group { margin-bottom: 15px; }
         label { display: block; font-weight: bold; margin-bottom: 5px; }
         select, textarea, button { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        textarea { height: 100px; resize: vertical; }
         button { background-color: #4caf50; color: white; border: none; cursor: pointer; font-size: 1rem; margin-top: 10px; }
-        #result { margin-top: 20px; padding: 15px; border-radius: 4px; display: none; background-color: #e8f5e9; border: 1px solid #c8e6c9; }
+        #result { margin-top: 20px; padding: 15px; border-radius: 4px; display: none; border: 1px solid #ccc; }
     </style>
 </head>
 <body>
@@ -46,13 +47,15 @@
             if (petType === "" || text === "") {
                 resultDiv.style.display = 'block';
                 resultDiv.style.backgroundColor = '#ffebee';
-                resultDiv.innerHTML = '⚠️ 項目をすべて入力してください。';
+                resultDiv.style.borderColor = '#ef5350';
+                resultDiv.innerHTML = '⚠️ ペットの種類を選択し、内容を入力してください。';
                 return;
             }
-            let advice = petType === "dog" ? "🐶 ワンちゃんの体調管理に気を配りましょう。" : (petType === "cat" ? "🐱 ネコちゃんが安心できる環境を作りましょう。" : "🐾 専門家に相談することも検討してください。");
+            let advice = petType === "dog" ? "🐶 ワンちゃんについての相談ですね。症状が続く場合は早めに獣医さんに相談しましょう。" : (petType === "cat" ? "🐱 ネコちゃんについての相談ですね。リラックスできる場所を確保して様子を見てあげてください。" : "🐾 ペットの様子を詳しく観察し、必要であれば専門家に相談しましょう。");
             resultDiv.style.display = 'block';
             resultDiv.style.backgroundColor = '#e8f5e9';
-            resultDiv.innerHTML = `<strong>【AIアドバイス】</strong><br>${advice}`;
+            resultDiv.style.borderColor = '#c8e6c9';
+            resultDiv.innerHTML = `<strong>【AIアドバイス】</strong><br>${advice}<br><br>詳細: ${text}`;
         });
     </script>
 </body>
