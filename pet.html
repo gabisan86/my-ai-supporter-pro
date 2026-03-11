@@ -5,57 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ペット悩み相談AI</title>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; padding: 20px; background-color: #f9fbf9; }
-        .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h1 { color: #2d5a27; font-size: 1.5rem; text-align: center; margin-top: 10px; }
-        .back-link { display: inline-block; padding: 8px 12px; background-color: #f8f9fa; color: #555; text-decoration: none; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem; transition: all 0.2s; }
-        .back-link:hover { background-color: #eee; border-color: #ccc; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        select, textarea, button { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        textarea { height: 100px; resize: vertical; }
-        button { background-color: #4caf50; color: white; border: none; cursor: pointer; font-size: 1rem; margin-top: 10px; }
-        #result { margin-top: 20px; padding: 15px; border-radius: 4px; display: none; border: 1px solid #ccc; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f8fafc; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .back-link { position: absolute; top: 20px; left: 20px; padding: 10px 18px; background-color: #fff; border: 1px solid #e2e8f0; border-radius: 8px; color: #64748b; text-decoration: none; font-size: 0.9rem; font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .container { width: 90%; max-width: 600px; background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #065f46; margin-bottom: 30px; font-size: 1.8rem; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #374151; }
+        select, textarea { width: 100%; padding: 15px; margin-bottom: 25px; border: 1px solid #d1d5db; border-radius: 12px; box-sizing: border-box; font-size: 1rem; outline: none; }
+        textarea { height: 120px; }
+        .btn { width: 100%; background: #10b981; color: white; padding: 18px; border-radius: 12px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border: none; transition: background 0.2s; }
+        .btn:hover { background: #059669; }
+        #result { margin-top: 25px; padding: 20px; border-radius: 12px; display: none; border: 1px solid #d1d5db; line-height: 1.8; }
     </style>
 </head>
 <body>
+    <a href="portfolio.html" class="back-link">← ポートフォリオに戻る</a>
     <div class="container">
-        <a href="portfolio.html" class="back-link">← ポートフォリオに戻る</a>
         <h1>🐾 ペット悩み相談AI</h1>
-        <div class="form-group">
-            <label for="petType">ペットの種類</label>
-            <select id="petType">
-                <option value="">選択してください</option>
-                <option value="dog">犬</option>
-                <option value="cat">猫</option>
-                <option value="other">その他</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="consultation">相談内容</label>
-            <textarea id="consultation" placeholder="（例）最近食欲がありません。"></textarea>
-        </div>
-        <button id="submitBtn">AIに相談する</button>
+        <label>ペットの種類</label>
+        <select id="petType">
+            <option value="">選択してください</option>
+            <option value="dog">犬</option>
+            <option value="cat">猫</option>
+            <option value="other">その他</option>
+        </select>
+        <label>相談内容</label>
+        <textarea id="consultation" placeholder="（例）最近食欲がありません。散歩中に他の犬に吠えてしまいます。"></textarea>
+        <button class="btn" id="submitBtn">AIに相談する</button>
         <div id="result"></div>
     </div>
     <script>
-        const submitBtn = document.getElementById('submitBtn');
-        const resultDiv = document.getElementById('result');
-        submitBtn.addEventListener('click', () => {
-            const petType = document.getElementById('petType').value;
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            const pet = document.getElementById('petType').value;
             const text = document.getElementById('consultation').value.trim();
-            if (petType === "" || text === "") {
-                resultDiv.style.display = 'block';
-                resultDiv.style.backgroundColor = '#ffebee';
-                resultDiv.style.borderColor = '#ef5350';
-                resultDiv.innerHTML = '⚠️ ペットの種類を選択し、内容を入力してください。';
-                return;
+            const res = document.getElementById('result');
+            if (!pet || !text) { 
+                res.style.display = 'block'; res.style.backgroundColor = '#fef2f2'; 
+                res.style.borderColor = '#f87171'; res.innerText = '⚠️ すべての項目を入力してください。'; return; 
             }
-            let advice = petType === "dog" ? "🐶 ワンちゃんについての相談ですね。症状が続く場合は早めに獣医さんに相談しましょう。" : (petType === "cat" ? "🐱 ネコちゃんについての相談ですね。リラックスできる場所を確保して様子を見てあげてください。" : "🐾 ペットの様子を詳しく観察し、必要であれば専門家に相談しましょう。");
-            resultDiv.style.display = 'block';
-            resultDiv.style.backgroundColor = '#e8f5e9';
-            resultDiv.style.borderColor = '#c8e6c9';
-            resultDiv.innerHTML = `<strong>【AIアドバイス】</strong><br>${advice}<br><br>詳細: ${text}`;
+            let adv = pet === "dog" ? "🐶 ワンちゃんの行動には理由があります。まずは静かな環境でリラックスさせてあげましょう。" : (pet === "cat" ? "🐱 ネコちゃんは環境の変化に敏感です。高い場所など安心できるスペースを確保してください。" : "🐾 ペットの様子を観察し、不安な場合は専門家への相談も検討しましょう。");
+            res.style.display = 'block'; res.style.backgroundColor = '#ecfdf5'; res.style.borderColor = '#10b981';
+            res.innerHTML = `<strong>【AIのアドバイス】</strong><br>${adv}`;
         });
     </script>
 </body>
