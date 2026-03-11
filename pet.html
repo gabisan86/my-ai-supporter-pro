@@ -7,22 +7,20 @@
     <style>
         body { font-family: sans-serif; line-height: 1.6; padding: 20px; background-color: #f9fbf9; }
         .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h1 { color: #2d5a27; font-size: 1.5rem; text-align: center; }
+        h1 { color: #2d5a27; font-size: 1.5rem; text-align: center; margin-top: 10px; }
+        .back-link { display: inline-block; padding: 8px 12px; background-color: #f8f9fa; color: #555; text-decoration: none; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem; transition: all 0.2s; }
+        .back-link:hover { background-color: #eee; border-color: #ccc; }
         .form-group { margin-bottom: 15px; }
         label { display: block; font-weight: bold; margin-bottom: 5px; }
         select, textarea, button { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        textarea { height: 100px; resize: vertical; }
         button { background-color: #4caf50; color: white; border: none; cursor: pointer; font-size: 1rem; margin-top: 10px; }
-        button:hover { background-color: #45a049; }
         #result { margin-top: 20px; padding: 15px; border-radius: 4px; display: none; background-color: #e8f5e9; border: 1px solid #c8e6c9; }
     </style>
 </head>
 <body>
     <div class="container">
+        <a href="portfolio.html" class="back-link">← ポートフォリオに戻る</a>
         <h1>🐾 ペット悩み相談AI</h1>
-        <div style="text-align: center; margin-bottom: 20px;">
-   　　　   <a href="portfolio.html" style="text-decoration: none; color: #666; font-size: 0.9rem;">← ポートフォリオに戻る</a>
-　　　  </div>
         <div class="form-group">
             <label for="petType">ペットの種類</label>
             <select id="petType">
@@ -34,48 +32,28 @@
         </div>
         <div class="form-group">
             <label for="consultation">相談内容</label>
-            <textarea id="consultation" placeholder="（例）最近食欲がありません。散歩中に他の犬に吠えてしまいます。"></textarea>
+            <textarea id="consultation" placeholder="（例）最近食欲がありません。"></textarea>
         </div>
         <button id="submitBtn">AIに相談する</button>
         <div id="result"></div>
     </div>
     <script>
-    const submitBtn = document.getElementById('submitBtn');
-    const resultDiv = document.getElementById('result');
-    const petTypeSelect = document.getElementById('petType');
-    const consultationText = document.getElementById('consultation');
-
-    submitBtn.addEventListener('click', () => {
-        const petType = petTypeSelect.value;
-        const text = consultationText.value.trim();
-
-        // 1. バリデーション（空欄チェック）
-        if (petType === "" || text === "") {
+        const submitBtn = document.getElementById('submitBtn');
+        const resultDiv = document.getElementById('result');
+        submitBtn.addEventListener('click', () => {
+            const petType = document.getElementById('petType').value;
+            const text = document.getElementById('consultation').value.trim();
+            if (petType === "" || text === "") {
+                resultDiv.style.display = 'block';
+                resultDiv.style.backgroundColor = '#ffebee';
+                resultDiv.innerHTML = '⚠️ 項目をすべて入力してください。';
+                return;
+            }
+            let advice = petType === "dog" ? "🐶 ワンちゃんの体調管理に気を配りましょう。" : (petType === "cat" ? "🐱 ネコちゃんが安心できる環境を作りましょう。" : "🐾 専門家に相談することも検討してください。");
             resultDiv.style.display = 'block';
-            resultDiv.style.backgroundColor = '#ffebee';
-            resultDiv.style.borderColor = '#ef5350';
-            resultDiv.innerHTML = '⚠️ ペットの種類を選択し、相談内容を入力してください。';
-            return;
-        }
-
-        // 2. 回答生成ロジック（簡易版AI）
-        let advice = "";
-        if (petType === "dog") {
-            advice = "🐶 ワンちゃんについての相談ですね。運動量や食事のバランスを見直しつつ、症状が続く場合は早めに獣医さんに相談しましょう。";
-        } else if (petType === "cat") {
-            advice = "🐱 ネコちゃんについての相談ですね。環境の変化に敏感な動物なので、リラックスできる場所を確保して様子を見てあげてください。";
-        } else {
-            advice = "🐾 大切な家族についての相談ですね。まずは落ち着いて、ペットの様子を詳しく観察してあげることが第一歩です。";
-        }
-
-        // 3. 結果の表示
-        resultDiv.style.display = 'block';
-        resultDiv.style.backgroundColor = '#e8f5e9';
-        resultDiv.style.borderColor = '#c8e6c9';
-        resultDiv.innerHTML = `<strong>【AIアドバイス】</strong><br>${advice}<br><br>詳細内容: ${text}`;
-   　 });
-　　</script>
+            resultDiv.style.backgroundColor = '#e8f5e9';
+            resultDiv.innerHTML = `<strong>【AIアドバイス】</strong><br>${advice}`;
+        });
+    </script>
 </body>
 </html>
-
-
