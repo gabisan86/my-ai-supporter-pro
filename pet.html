@@ -36,5 +36,42 @@
         <button id="submitBtn">AIに相談する</button>
         <div id="result"></div>
     </div>
+    <script>
+    const submitBtn = document.getElementById('submitBtn');
+    const resultDiv = document.getElementById('result');
+    const petTypeSelect = document.getElementById('petType');
+    const consultationText = document.getElementById('consultation');
+
+    submitBtn.addEventListener('click', () => {
+        const petType = petTypeSelect.value;
+        const text = consultationText.value.trim();
+
+        // 1. バリデーション（空欄チェック）
+        if (petType === "" || text === "") {
+            resultDiv.style.display = 'block';
+            resultDiv.style.backgroundColor = '#ffebee';
+            resultDiv.style.borderColor = '#ef5350';
+            resultDiv.innerHTML = '⚠️ ペットの種類を選択し、相談内容を入力してください。';
+            return;
+        }
+
+        // 2. 回答生成ロジック（簡易版AI）
+        let advice = "";
+        if (petType === "dog") {
+            advice = "🐶 ワンちゃんについての相談ですね。運動量や食事のバランスを見直しつつ、症状が続く場合は早めに獣医さんに相談しましょう。";
+        } else if (petType === "cat") {
+            advice = "🐱 ネコちゃんについての相談ですね。環境の変化に敏感な動物なので、リラックスできる場所を確保して様子を見てあげてください。";
+        } else {
+            advice = "🐾 大切な家族についての相談ですね。まずは落ち着いて、ペットの様子を詳しく観察してあげることが第一歩です。";
+        }
+
+        // 3. 結果の表示
+        resultDiv.style.display = 'block';
+        resultDiv.style.backgroundColor = '#e8f5e9';
+        resultDiv.style.borderColor = '#c8e6c9';
+        resultDiv.innerHTML = `<strong>【AIアドバイス】</strong><br>${advice}<br><br>詳細内容: ${text}`;
+   　 });
+　　</script>
 </body>
 </html>
+
