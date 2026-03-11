@@ -7,7 +7,26 @@
         body { font-family: sans-serif; background-color: #f0f4f8; margin: 0; padding: 20px; color: #2c3e50; }
         .header { background-color: #2c3e50; color: white; padding: 60px 20px; text-align: center; border-radius: 10px; margin-bottom: 40px; }
         .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1000px; margin: auto; }
-        .card { background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 30px; width: 300px; text-align: left; display: flex; flex-direction: column; }
+        
+        /* カードの基本設定 */
+        .card { 
+            background: white; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            padding: 30px; 
+            width: 300px; 
+            text-align: left; 
+            display: flex; 
+            flex-direction: column; 
+            transition: all 0.3s ease; /* 変化をなめらかにする設定 */
+        }
+
+        /* 【追加】マウスを乗せた時の動き */
+        .card:hover {
+            transform: translateY(-10px); /* 上に10px浮き上がる */
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15); /* 影を濃くして浮遊感を出す */
+        }
+
         .card h3 { margin-top: 0; color: #1a2a3a; font-size: 18px; }
         .card p { font-size: 14px; line-height: 1.6; color: #555; flex-grow: 1; }
         .btn { display: inline-block; background-color: #3498db; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; text-align: center; font-weight: bold; margin-top: 20px; transition: 0.3s; }
