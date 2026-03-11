@@ -5,41 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>副業アイデア帳</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; background-color: #f0f4f8; }
-        .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #334e68; margin-top: 10px; }
-        .back-link { display: inline-block; padding: 8px 12px; background-color: #f8f9fa; color: #555; text-decoration: none; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem; }
-        .input-area { display: flex; gap: 10px; margin-top: 20px; }
-        input { flex-grow: 1; padding: 10px; border: 2px solid #ccc; border-radius: 4px; outline: none; }
-        input.error { border-color: #ef5350; background-color: #fffde7; }
-        button#addBtn { padding: 10px 20px; background: #2ecc71; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        #errorMsg { color: #ef5350; font-size: 0.85rem; margin-top: 5px; display: none; }
-        ul { list-style: none; padding: 0; margin-top: 20px; }
-        li { background: #f9f9f9; padding: 12px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; border-radius: 4px; margin-bottom: 5px; }
-        .delete-btn { background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        body { font-family: sans-serif; background-color: #f8fafc; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .back-link { position: absolute; top: 20px; left: 20px; padding: 10px 18px; background-color: #fff; border: 1px solid #e2e8f0; border-radius: 8px; color: #64748b; text-decoration: none; font-size: 0.9rem; font-weight: bold; }
+        .container { width: 95%; max-width: 550px; background: #fff; padding: 35px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        h1 { text-align: center; color: #1e293b; margin-bottom: 25px; }
+        .input-group { display: flex; gap: 10px; }
+        input { flex: 1; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; outline: none; font-size: 1rem; }
+        input.error { border-color: #f87171; background-color: #fef2f2; }
+        .add-btn { background: #10b981; color: white; border: none; padding: 15px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        ul { list-style: none; padding: 0; margin-top: 25px; }
+        li { background: #f1f5f9; padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .del-btn { background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
     </style>
 </head>
 <body>
+    <a href="portfolio.html" class="back-link">← ポートフォリオに戻る</a>
     <div class="container">
-        <a href="portfolio.html" class="back-link">← ポートフォリオに戻る</a>
         <h1>💡 副業アイデア帳</h1>
-        <div class="input-area">
-            <input type="text" id="ideaInput" placeholder="アイデアを入力...">
-            <button id="addBtn">追加</button>
+        <div class="input-group">
+            <input type="text" id="ideaInput" placeholder="新しい副業の種を入力...">
+            <button class="add-btn" id="addBtn">追加</button>
         </div>
-        <div id="errorMsg">⚠️ アイデアを入力してください</div>
         <ul id="ideaList"></ul>
     </div>
     <script>
         const input = document.getElementById('ideaInput');
         const list = document.getElementById('ideaList');
-        const errorMsg = document.getElementById('errorMsg');
         document.getElementById('addBtn').addEventListener('click', () => {
             const val = input.value.trim();
-            if (!val) { input.classList.add('error'); errorMsg.style.display = 'block'; return; }
-            input.classList.remove('error'); errorMsg.style.display = 'none';
+            if (!val) { input.classList.add('error'); return; }
+            input.classList.remove('error');
             const li = document.createElement('li');
-            li.innerHTML = `<span>${val}</span><button class="delete-btn" onclick="this.parentElement.remove()">削除</button>`;
+            li.innerHTML = `<span>${val}</span><button class="del-btn" onclick="this.parentElement.remove()">削除</button>`;
             list.appendChild(li);
             input.value = '';
         });
