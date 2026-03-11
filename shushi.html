@@ -2,107 +2,40 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>副業収支シミュレーター Pro+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>副業収支シミュレーター</title>
     <style>
-        /* 背景変化のために transition（ゆっくり変わる効果）を追加 */
-        body { font-family: sans-serif; padding: 20px; background: #f0f4f8; color: #2c3e50; transition: background-color 0.5s ease; }
-        .container { max-width: 450px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        h1 { font-size: 22px; text-align: center; color: #1a2a3a; margin-bottom: 25px; border-bottom: 2px solid #27ae60; padding-bottom: 10px; }
-        label { display: block; margin-top: 15px; font-weight: bold; font-size: 14px; }
-        input { width: 100%; padding: 12px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
-        button { width: 100%; padding: 15px; background: #27ae60; color: white; border: none; border-radius: 8px; margin-top: 25px; cursor: pointer; font-size: 18px; font-weight: bold; transition: 0.3s; }
-        button:hover { background: #219150; }
-        .result { margin-top: 25px; padding: 20px; background: #e8f6ef; border-radius: 10px; display: none; border-left: 5px solid #27ae60; }
-        .advice { margin-top: 15px; font-size: 14px; color: #444; font-style: italic; background: white; padding: 10px; border-radius: 5px; }
-        .goal-nav { margin-top: 15px; padding: 15px; background: #fff3cd; border-radius: 10px; font-size: 14px; border: 1px dashed #e67e22; }
+        body { font-family: sans-serif; padding: 20px; transition: background-color 0.5s; }
+        .container { max-width: 500px; margin: 0 auto; background: rgba(255,255,255,0.9); padding: 20px; border-radius: 10px; }
+        h1 { text-align: center; margin-top: 10px; }
+        .back-link { display: inline-block; padding: 8px 12px; background-color: #f8f9fa; color: #555; text-decoration: none; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem; }
+        input { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
     </style>
 </head>
-<body id="mainBody">
-
-<a href="portfolio.html" style="text-decoration:none; color:#3498db; font-size: 14px;">← ポートフォリオに戻る</a>
-
-<div class="container">
-    <h1>副業収支シミュレーター Pro+</h1>
-    
-    <label>月間目標利益（円）</label>
-    <input type="number" id="goalProfit" value="50000">
-
-    <label>今回の売上（円）</label>
-    <input type="number" id="sales" placeholder="例: 10000">
-
-    <label>今回の経費（円）</label>
-    <input type="number" id="costs" placeholder="例: 1000">
-
-    <label>作業時間（時間）</label>
-    <input type="number" id="hours" placeholder="例: 2" step="0.1">
-
-    <button onclick="calculate()">精密診断＆目標ナビ開始</button>
-
-    <div id="resultArea" class="result">
-        <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">【診断結果】</div>
-        <div>手残り利益： <strong><span id="profitText"></span> 円</strong></div>
-        <div>実質時給： <strong style="color: #e67e22;"><span id="hourlyRateText"></span> 円</strong></div>
-        
-        <div class="goal-nav" id="goalNav">
-            <strong>目標達成ナビ：</strong><br>
-            <span id="goalText"></span>
-        </div>
-
-        <div class="advice" id="adviceText"></div>
+<body>
+    <div class="container">
+        <a href="portfolio.html" class="back-link">← ポートフォリオに戻る</a>
+        <h1>💰 収支計算</h1>
+        <input type="number" id="income" placeholder="売上額 (円)">
+        <input type="number" id="hours" placeholder="作業時間 (時間)">
+        <div id="result" style="text-align:center; font-weight:bold; font-size:1.2rem; margin-top:20px;">時給を計算します</div>
     </div>
-</div>
+    <script>
+        const incomeInput = document.getElementById('income');
+        const hoursInput = document.getElementById('hours');
+        const resultDiv = document.getElementById('result');
 
-<script>
-function calculate() {
-    const goal = parseFloat(document.getElementById('goalProfit').value) || 0;
-    const sales = parseFloat(document.getElementById('sales').value) || 0;
-    const costs = parseFloat(document.getElementById('costs').value) || 0;
-    const hours = parseFloat(document.getElementById('hours').value) || 0;
-    
-    const body = document.getElementById('mainBody');
-    const resultArea = document.getElementById('resultArea');
-    const profitText = document.getElementById('profitText');
-    const hourlyRateText = document.getElementById('hourlyRateText');
-    const adviceText = document.getElementById('adviceText');
-    const goalText = document.getElementById('goalText');
-
-    const profit = sales - costs;
-    profitText.innerText = profit.toLocaleString();
-
-    if (hours > 0) {
-        const hourlyRate = Math.round(profit / hours);
-        hourlyRateText.innerText = hourlyRate.toLocaleString();
-        
-        // 1. 背景色の変更
-        if (hourlyRate < 1500) {
-            body.style.backgroundColor = "#bdc3c7"; // 薄暗いグレー
-        } else if (hourlyRate >= 2500) {
-            body.style.backgroundColor = "#fef9e7"; // 明るい黄色
-        } else {
-            body.style.backgroundColor = "#f0f4f8"; // 通常の青白
+        function calc() {
+            const inc = parseFloat(incomeInput.value) || 0;
+            const hrs = parseFloat(hoursInput.value) || 0;
+            if (hrs > 0) {
+                const wage = Math.round(inc / hrs);
+                resultDiv.innerText = `推定時給: ${wage}円`;
+                document.body.style.backgroundColor = wage >= 2000 ? "#e8f5e9" : "#fff3e0";
+            }
         }
-
-        // 2. 目標達成ナビの計算
-        if (profit > 0) {
-            const timesNeeded = Math.ceil(goal / profit);
-            goalText.innerText = `月目標の${goal.toLocaleString()}円まで、あと ${timesNeeded} 回の同じ作業が必要です！`;
-        } else {
-            goalText.innerText = "まずは利益を出して目標への第一歩を！";
-        }
-        
-        // 3. アドバイス判定
-        if (hourlyRate >= 2500) {
-            adviceText.innerText = "素晴らしい！黄色く輝く高時給です。この効率を維持しましょう。";
-        } else if (hourlyRate >= 1500) {
-            adviceText.innerText = "平均以上のペースです。背景を黄色にするために、あと少し効率化してみませんか？";
-        } else {
-            adviceText.innerText = "少し効率が落ちているようです。AIに任せられる作業がないか探してみましょう！";
-        }
-    }
-    
-    resultArea.style.display = 'block';
-}
-</script>
-
+        incomeInput.addEventListener('input', calc);
+        hoursInput.addEventListener('input', calc);
+    </script>
 </body>
 </html>
