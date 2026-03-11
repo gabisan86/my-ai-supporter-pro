@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>副業収支シミュレーター</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; transition: background-color 0.5s; }
-        .container { max-width: 500px; margin: 0 auto; background: rgba(255,255,255,0.9); padding: 20px; border-radius: 10px; }
+        body { font-family: sans-serif; padding: 20px; transition: background-color 0.5s; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { width: 100%; max-width: 450px; background: rgba(255,255,255,0.95); padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
         h1 { text-align: center; margin-top: 10px; }
-        .back-link { display: inline-block; padding: 8px 12px; background-color: #f8f9fa; color: #555; text-decoration: none; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem; }
-        input { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
+        .back-link { display: inline-block; padding: 8px 12px; background-color: #f8f9fa; color: #555; text-decoration: none; border: 1px solid #ddd; border-radius: 4px; font-size: 0.85rem; margin-bottom: 10px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        #result-box { margin-top: 25px; padding: 20px; border-radius: 10px; text-align: center; background: #eee; }
     </style>
 </head>
 <body>
@@ -18,20 +19,27 @@
         <h1>💰 収支計算</h1>
         <input type="number" id="income" placeholder="売上額 (円)">
         <input type="number" id="hours" placeholder="作業時間 (時間)">
-        <div id="result" style="text-align:center; font-weight:bold; font-size:1.2rem; margin-top:20px;">時給を計算します</div>
+        <div id="result-box">
+            <div id="result-text">時給を計算します</div>
+            <div id="result-value" style="font-size: 1.8rem; font-weight: bold;">---</div>
+        </div>
     </div>
     <script>
         const incomeInput = document.getElementById('income');
         const hoursInput = document.getElementById('hours');
-        const resultDiv = document.getElementById('result');
-
+        const resultVal = document.getElementById('result-value');
+        const resultText = document.getElementById('result-text');
         function calc() {
             const inc = parseFloat(incomeInput.value) || 0;
             const hrs = parseFloat(hoursInput.value) || 0;
             if (hrs > 0) {
                 const wage = Math.round(inc / hrs);
-                resultDiv.innerText = `推定時給: ${wage}円`;
+                resultVal.innerText = `¥${wage.toLocaleString()}`;
+                resultText.innerText = "推定時給";
                 document.body.style.backgroundColor = wage >= 2000 ? "#e8f5e9" : "#fff3e0";
+            } else {
+                resultVal.innerText = "---";
+                document.body.style.backgroundColor = "#f0f2f5";
             }
         }
         incomeInput.addEventListener('input', calc);
