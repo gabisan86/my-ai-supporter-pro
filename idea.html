@@ -7,8 +7,16 @@
         body { font-family: sans-serif; background-color: #fff9e6; margin: 0; padding: 20px; color: #5d4037; }
         .container { max-width: 500px; margin: 50px auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         h1 { text-align: center; font-size: 24px; margin-bottom: 30px; border-bottom: 2px solid #ffcc80; padding-bottom: 10px; }
-        .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
-        input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
+        .input-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 20px; }
+        .input-row { display: flex; gap: 10px; }
+        input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; transition: 0.2s; }
+        
+        /* エラー時の入力枠 */
+        input.error { border: 2px solid #ef5350; background-color: #ffebee; }
+        
+        /* エラーメッセージ */
+        #errorMsg { color: #ef5350; font-size: 12px; height: 18px; font-weight: bold; }
+
         .btn-add { background-color: #ffb74d; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
         .idea-list { list-style: none; padding: 0; }
         .idea-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; background: #fff; margin-bottom: 5px; border-radius: 5px; }
@@ -23,31 +31,41 @@
 <div class="container">
     <h1>副業ネタ・アイデア帳</h1>
     <div class="input-group">
-        <input type="text" id="ideaInput" placeholder="例：ペットの悩み相談AI">
-        <button class="btn-add" onclick="addIdea()">追加</button>
+        <div id="errorMsg"></div> <div class="input-row">
+            <input type="text" id="ideaInput" placeholder="例：ペットの悩み相談AI">
+            <button class="btn-add" onclick="addIdea()">追加</button>
+        </div>
     </div>
     <ul id="ideaList" class="idea-list"></ul>
 </div>
 
 <script>
-    // 1. 画面を開いた時に保存されたデータを読み込む
     window.onload = function() {
         const savedIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
         savedIdeas.forEach(idea => displayIdea(idea));
     };
 
-    // 2. アイデアを追加する
     function addIdea() {
         const input = document.getElementById('ideaInput');
+        const errorMsg = document.getElementById('errorMsg');
         const text = input.value.trim();
-        if (text === "") return;
+
+        // 【バリデーション機能】空っぽなら警告を出す
+        if (text === "") {
+            input.classList.add('error'); // 枠を赤くする
+            errorMsg.innerText = "⚠️ アイデアを入力してください"; // 文字を出す
+            return; // 処理を中断する
+        }
+
+        // 入力があった場合はエラー表示を消す
+        input.classList.remove('error');
+        errorMsg.innerText = "";
 
         displayIdea(text);
         saveIdea(text);
         input.value = "";
     }
 
-    // 3. 画面に表示する
     function displayIdea(text) {
         const list = document.getElementById('ideaList');
         const li = document.createElement('li');
@@ -59,23 +77,14 @@
         list.appendChild(li);
     }
 
-    // 4. ブラウザに保存する
     function saveIdea(text) {
         const savedIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
         savedIdeas.push(text);
         localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
     }
 
-    // 5. データを削除する
     function removeIdea(button, text) {
-        // 画面から消す
         button.parentElement.remove();
-        // 保存データから消す
         let savedIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
         savedIdeas = savedIdeas.filter(idea => idea !== text);
-        localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
-    }
-</script>
-
-</body>
-</html>
+        localStorage.setItem('my
